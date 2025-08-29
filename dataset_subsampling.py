@@ -4,7 +4,12 @@ import shutil
 
 def organize_imgs(yaml_dir, imgs_dir):
     """
-    Organize images according to their yaml file classes
+    Organize images according to their yaml file classes. Creates directory for each animal class
+    and moves the corresponding images in that directory
+    
+    Args:
+        - yaml_dir(str): directory with all .yaml files of detections
+        - imgs_dir(str): directory of all the images
     
     """
     for filename in os.listdir(yaml_dir):
@@ -23,7 +28,13 @@ def organize_imgs(yaml_dir, imgs_dir):
                 shutil.move(file_path, folder_path)
                 
             
+def random_subsample(imgs_dir):
+    
+    pass
             
             
 if __name__ == "__main__":
-    organize_imgs("/home/dario/Projects/eu_wildlife_data/md/BNP_species", "/home/dario/Projects/eu_wildlife_data/img")
+    # organize_imgs("/home/dario/Projects/eu_wildlife_data/md/MOF_species", "/home/dario/Projects/eu_wildlife_data/img")
+    
+    pass
+    
