@@ -152,9 +152,14 @@ def random_subsample(imgs_dir, sample_dim=200):
         total_available = len(species_images[species])
         print(f"  {species}: {count}/{total_available} images")
 
+
+
+
 if __name__ == "__main__":
     # organize_imgs("/home/dario/Projects/eu_wildlife_data/md/MOF_species", "/home/dario/Projects/eu_wildlife_data/img")
     
     # rename_files("/home/dario/Projects/eu_wildlife_data/md/BNP_species")
 
-    random_subsample("/home/dario/Projects/eu_wildlife_data/md/BNP_species", sample_dim=300)
+    # random_subsample("/home/dario/Projects/eu_wildlife_data/md/BNP_species", sample_dim=300)
+
+    pass

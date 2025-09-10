@@ -1,0 +1,33 @@
+path: ./detection_dataset
+train: images/train
+val: images/test
+train_label_dir: labels/train
+val_label_dir: labels/test
+names:
+ 0: mouse (apodemus)
+ 1: dog (canis familiaris)
+ 2: common wood pigeon (columba palumbus)
+ 3: great spotted woodpecker (dendrocopos major)
+ 4: european robin (erithacus rubecula)
+ 5: eurasian chaffinch (fringilla coelebs)
+ 6: eurasian jay (garrulus glandarius)
+ 7: european dormouse (glis glis)
+ 8: european badger (meles meles)
+ 9: weasel (mustela nivalis)
+ 10: common raccoon dog (nyctereutes procyonides)
+ 11: great tit (parus major)
+ 12: red squirrell (sciurus vulgaris)
+ 13: eurasian woodcock (scolopax rusticola)
+ 14: eurasian nuthatch (sitta europaea)
+ 15: wild boar (sus scrofa)
+ 16: blackcap (sylvia atricapilla)
+ 17: eurasian wren (troglodytes troglodytes)
+ 18: common blackbird (turdus merula)
+ 19: song thrush (turdus philomelos)
+ 20: red fox (vulpes vulpes)
+ 21: common buzzard (buteo buteo)
+ 22: roe deer (capreolus capreolus)
+ 23: wild cat (felis silvestris)
+ 24: european hare (lepus europaeus)
+ 25: raccoon (procyon lotor)
+ 26: redwing (turdus iliacus)
