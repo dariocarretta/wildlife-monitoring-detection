@@ -1,14 +1,11 @@
 import  os
 from ultralytics import YOLO
-import torch.nn as nn
-import torch
 import wandb
-import torchvision
+#import albumentations not needed since YOLO integrates automatically with it
 
 # login on wandb
 wandb.login(key=os.environ.get("WANDB_API_KEY"))
 
-#import albumentations not needed since YOLO integrates automatically with it
 
 # reload model from checkpoint
 model = YOLO(f"./weights/md_v1000.0.0-sorrel.pt")
@@ -19,10 +16,10 @@ model = YOLO(f"./weights/md_v1000.0.0-sorrel.pt")
 model.train(
     data="./custom_dataset.yaml", 
     epochs=100,
-    # Existing augmentations:
+    # basic augmentations (flip hor-ver, saturation and brightness change)
     fliplr=0.5, flipud=0.5, hsv_s=0.7, hsv_v=0.6,
     
-    # ADD THESE - all native Ultralytics:
+    # additional transformations
     mosaic=1.0,     # mosaic augmentation (very effective)
     mixup=0.1,      # mixup for better generalization
     copy_paste=0.1, # copy-paste objects between images
