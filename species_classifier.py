@@ -18,7 +18,7 @@ class SpeciesClassifier(nn.Module):
         super().__init__()
         
         # initial convolution
-        self.initial_conv = nn.Conv2d(3, initial_features, kernel_size=7, stride=2, padding="same")
+        self.initial_conv = nn.Conv2d(3, initial_features, kernel_size=7, stride=2, padding=3) # padding=3 for "same" padding before stride
         self.initial_bn = nn.BatchNorm2d(initial_features)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)

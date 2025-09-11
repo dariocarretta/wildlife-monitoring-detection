@@ -1,10 +1,6 @@
 import os
-import numpy as np
-import torch
-import torch.nn as nn
 from torch.utils.data import Dataset
-import torchvision
-from torchvision.transforms import ToTensor
+from torchvision import transforms
 import cv2
 from PIL import Image
 import glob
@@ -27,7 +23,7 @@ class ClassificationDataset(Dataset):
         transform (torchvision.transforms, optional): transformations to be applied to the images. Defaults to None.
         split (str, optional): train or test split, needed to get data. Defaults to "train".
     """
-    def __init__(self, parent_dir, transform=None, split="train"):
+    def __init__(self, parent_dir, transform=None, split="train", fixed_size=(512, 512)):
         super().__init__()
         self.parent_dir = parent_dir
         self.img_dir = os.path.join(parent_dir, split)
@@ -38,15 +34,22 @@ class ClassificationDataset(Dataset):
         self.labels = self.labels[self.labels["split"] == split].reset_index(drop=True)
         self.transform = transform
         self.split = split
+        self.fixed_size = fixed_size
 
     def __len__(self):
         return len(self.paths)
     
-    def __getitem__(self, index):
-        filename = self.paths[index]
+    def __getitem__(self, idx):
+        filename = self.paths[idx]
         img_path = os.path.join(self.img_dir, filename)
-        # apply resizing to common size and convert to torh tensor in [0., 1.]
-        img = ToTensor(letterbox_resizing(img_path, new_shape=(512, 512)))
+        # uncomment for letterbox resizing
+        #img = letterbox_resizing(img_path, new_shape=self.fixed_size)
+        img = cv2.imread(img_path)
+        # Resize image to fixed size, e.g., 224x224
+        img = cv2.resize(img, self.fixed_size, interpolation=cv2.INTER_LINEAR)
+        to_tensor = transforms.ToTensor()
+        img = to_tensor(img)
+        
         # apply possible transformations
         if self.transform:
             img = self.transform(img)
@@ -82,7 +85,7 @@ def letterbox_resizing(impath, new_shape=(640, 640)):
         new_shape (tuple, optional): Final dimensions of the resized image. Defaults to (640, 640).
 
     Returns:
-        np.array: resized image 
+        np.array: resized image with exact dimensions
     """
 
     # load image
@@ -108,6 +111,13 @@ def letterbox_resizing(impath, new_shape=(640, 640)):
     # add padding with gray color
     color = (114, 114, 114)
     img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+    
+    # Ensure exact dimensions by checking final size
+    if img.shape[:2] != (new_shape[0], new_shape[1]):
+        img = cv2.resize(img, (new_shape[1], new_shape[0]), interpolation=cv2.INTER_LINEAR)
+    
+    # Convert BGR to RGB for proper color channels
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     
     return img
 
@@ -215,4 +225,3 @@ if __name__ == "__main__":
     ds = ClassificationDataset("class_dataset", split="train")
 
     print(ds[0])
-    
