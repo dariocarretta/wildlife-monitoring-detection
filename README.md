@@ -28,10 +28,9 @@ The approach I used can be split into four different methodologies, to be compar
 4. Apply a two-step detection approach, analogous to 2., but training from scratch a custom classifier (based on [Squeeze-and-Excitation Blocks](https://openaccess.thecvf.com/content_cvpr_2018/papers/Hu_Squeeze-and-Excitation_Networks_CVPR_2018_paper.pdf)) to run on the resulting detected animals.
 
 
-![fox1](./media/val_img46.JPG)
-*Example image taken from the BNP dataset.*
-
 ### One-Step  Detection: Finetuning YOLOv11n and MegaDetector
+
+![one-step comparison](/media/onestep_comparison.png)
 
 The one-step detection YOLOv11n model was finetuned by:
 - Freezing its first 10 layers (the feature extracting backbone)
@@ -54,19 +53,15 @@ The performances of the fine-tuned YOLOv11n and MDv1000 on the one-step detectio
 
 *Normalized confusion marices for the finetuned MDv1000 (left) and YOLOv11n (right) models. The fine-tuned YOLOv11n shows a more balanced performance across the classes and an overall better one w.r.t. accuracy (although worse on roe deers).*
 
-<p float="middle">
-  <img src="/media/onestep_comparison1.png" width="300" />
-  <img src="/media/onestep_comparison2.png" width="300" /> 
-  <img src="/media/onestep_comparison3.png" width="300" /> 
-</p>
+## Two-Step Detection 
 
-*Examples of the models' predictions on three images from the external test set. One can note MDv1000 more precise localiztion, but sometimes poorer classification or on some examples.*
+![two-step comparison](/media/twostep_comparison.png)
 
-### Two-Step Detection - Resnet34
+### Custom Classifier
 
 
-### Two-Step Detection - Custom Classifier
 
+*Confusion matrices for the finetuned ResNet34 (left) and custom classifier (right) models. It can be seen how ResNet34 has an overall better performance, but not overwhelmingly superior to the custom model.*
 
 ## Conclusions
 

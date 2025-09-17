@@ -12,11 +12,16 @@ wandb.login(key=os.environ.get("WANDB_API_KEY"))
 # load model
 model = YOLO("../weights/yolo11n.pt")
 
-# * MDV1000: https://github.com/agentmorris/MegaDetector/blob/main/docs/release-notes/mdv1000-release.md
+# MDV1000: https://github.com/agentmorris/MegaDetector/blob/main/docs/release-notes/mdv1000-release.md
+
+# * NOTE: for the multiclass case, 
+# * the weights of the classification and dfl loss were set to 2 and 7, respectively
+# * instead of the default values of 0.5 and 1.5
+
 
 # train (with wandb monitoring)
 model.train(
-    data="../data/custom_dataset.yaml",
+    data="../../data/custom_dataset.yaml",
     epochs=100,
     # ===basic augmentations===
     fliplr=0.5,    # flip horizontally (0.5 prob)
@@ -32,12 +37,10 @@ model.train(
 
     iou=0.6,  # iou to consider for non-max suppression
 
-    single_cls = True,
-
     freeze=10,  # freeze the first 10 layers of the model (the featuer extraction backbone)
     
     project="wildlife-detection",
-    name="yolov11n-singlecls",
+    name="yolov11n-eumammals-noweighting",
 )
 # evaluate model
 model.val()
