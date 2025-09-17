@@ -1,8 +1,7 @@
 presentation_utils
-class_dataset
-detection_dataset
 wandb
-wildlife_detection
 weights
+data*
 wildlife-detection
-*.zip
+__pycache__
+results
