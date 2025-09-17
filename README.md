@@ -60,6 +60,10 @@ The performances of the fine-tuned YOLOv11n and MDv1000 on the one-step detectio
 ### Custom Classifier
 
 
+<p float="middle">
+  <img src="/media/twostep_resnet34.png" width="400" />
+  <img src="/media/twostep_custom.png" width="400" /> 
+</p>
 
 *Confusion matrices for the finetuned ResNet34 (left) and custom classifier (right) models. It can be seen how ResNet34 has an overall better performance, but not overwhelmingly superior to the custom model.*
 

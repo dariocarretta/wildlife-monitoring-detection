@@ -60,9 +60,10 @@ def main(input_dir: str, output_dir: str, approach: str = "two-step") -> None:
 
     # compare  base detectors
     elif approach == "detector-comparison":
-        
-        megadetector = YOLO("./src/weights/md_v1000.0.0-sorrel.pt")    # base megadetector
-        yolo_detector = YOLO("./src/weights/two-step/yolo11n_singlecls.pt")    # finetuned yolo
+        megadetector = YOLO("./src/weights/md_v1000.0.0-sorrel.pt")  # base megadetector
+        yolo_detector = YOLO(
+            "./src/weights/two-step/yolo11n_singlecls.pt"
+        )  # finetuned yolo
 
         comparison_results = run_detector_comparison(data, megadetector, yolo_detector)
 
@@ -71,18 +72,16 @@ def main(input_dir: str, output_dir: str, approach: str = "two-step") -> None:
 
     # twostep: base detection -> classification
     elif approach == "two-step":
-        
-        detector = YOLO("./src/weights/md_v1000.0.0-sorrel.pt") 
+        detector = YOLO("./src/weights/md_v1000.0.0-sorrel.pt")
 
         custom_model, resnet_model, device = load_classifiers()
-        
+
         detections_data = run_two_step_detection(
             data, detector, custom_model, resnet_model, device
         )
 
         # generate outputs
         plot_two_step_detections(detections_data, output_dir)
-
 
 
 if __name__ == "__main__":
