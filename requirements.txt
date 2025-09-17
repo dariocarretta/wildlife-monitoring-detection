@@ -1,0 +1,12 @@
+matplotlib==3.6.3
+numpy==2.3.3
+pandas==2.3.2
+Pillow==11.3.0
+PyYAML==6.0.1
+PyYAML==6.0.2
+scikit_learn==1.7.2
+seaborn==0.13.2
+torch==2.8.0
+torchvision==0.23.0
+tqdm==4.67.1
+ultralytics==8.3.201
