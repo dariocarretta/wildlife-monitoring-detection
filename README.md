@@ -46,26 +46,39 @@ The selected image size was 640x640 (as inidicated in YOLOv11n documentation), a
 
 The performances of the fine-tuned YOLOv11n and MDv1000 on the one-step detection + classification task were comparable in accuracy, although with a different balance among the classes:
 
-<p float="middle">
-  <img src="/media/onestep_mdv1000.png" width="400" />
-  <img src="/media/onestep_yolov11n.png" width="400" /> 
-</p>
 
-*Normalized confusion marices for the finetuned MDv1000 (left) and YOLOv11n (right) models. The fine-tuned YOLOv11n shows a more balanced performance across the classes and an overall better one w.r.t. accuracy (although worse on roe deers).*
+| Finetuned MDv1000                              | Finetuned YOLOv11n                               |
+| ---------------------------------------------- | ------------------------------------------------ |
+| ![onestep_mdv1000](/media/onestep_mdv1000.png) | ![onestep_yolov11n](/media/onestep_yolov11n.png) |
+
+>*Normalized confusion marices for the finetuned MDv1000 (left) and YOLOv11n (right) models. The fine-tuned YOLOv11n shows a more balanced performance across the classes and an overall better one w.r.t. accuracy (although worse on roe deers).*
 
 ## Two-Step Detection 
 
 ![two-step comparison](/media/twostep_comparison.png)
 
+For the two-step approach, I first tried finetuning YOLOv11n for the single-class animal detection part, to compare it to baseline MDv1000. Although performances were good, it still was definitely less precise and sensitive than MDv1000 (e.g., [mAP50-95](https://www.ultralytics.com/glossary/mean-average-precision-map) of 0.61 vs 0.72, and [bbox recall](https://docs.ultralytics.com/guides/yolo-performance-metrics/#how-to-calculate-metrics-for-yolo11-model) of 0.74 vs 0.83), so the latter was chosen as base detector.
+
+As first, powerful classifier model to fine-tune, I chose ResNet34, which although is not the SOTA image classifier anymore, still consistutes a good baseline for classification, and to compare a custom model against.
+Also, the architecture is not excessibely large, so it is possible to also train it on hardware with limited computational capabilities (as mine was).
+
+The ResNet34 model was finetuned with the following configurations:
+- Batch size: 16
+- 
+
+
+
 ### Custom Classifier
 
 
-<p float="middle">
-  <img src="/media/twostep_resnet34.png" width="400" />
-  <img src="/media/twostep_custom.png" width="400" /> 
-</p>
 
-*Confusion matrices for the finetuned ResNet34 (left) and custom classifier (right) models. It can be seen how ResNet34 has an overall better performance, but not overwhelmingly superior to the custom model.*
+| Finetuned ResNet34                              | Custom Model                                |
+| ----------------------------------------------- | ------------------------------------------- |
+| ![twostep_resnet34](media/twostep_resnet34.png) | ![twostep_custom](media/twostep_custom.png) |
+
+
+>*Confusion matrices for the finetuned ResNet34 (left) and custom classifier (right) models. It can be seen how ResNet34 has an overall better performance, but not overwhelmingly superior to the custom model.*
+
 
 ## Conclusions
 
