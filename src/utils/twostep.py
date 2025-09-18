@@ -1,16 +1,19 @@
 import os
-from typing import List, Tuple
 from pathlib import Path
+from typing import List, Tuple
 
+import cv2
+import matplotlib.patches as patches
 import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
-from ..models.custom_classifier import CustomClassifier
 from matplotlib.lines import Line2D
-import matplotlib.patches as patches
 from PIL import Image
 from torchvision import transforms
 from ultralytics import YOLO
+
+from ..models.custom_classifier import CustomClassifier
 
 
 def load_classifiers() -> Tuple[nn.Module, nn.Module, str]:
@@ -24,7 +27,7 @@ def load_classifiers() -> Tuple[nn.Module, nn.Module, str]:
     # load custom classifier
     custom_model = CustomClassifier(num_classes=3, init_features=32)
     custom_model.load_state_dict(
-        torch.load("./src/weights/two-step/custom_classifier.pt", map_location=device)
+        torch.load("./src/weights/two-step/custom_classifier.pt")
     )
     custom_model.to(device)
     custom_model.eval()
@@ -33,9 +36,9 @@ def load_classifiers() -> Tuple[nn.Module, nn.Module, str]:
     resnet_model = torch.hub.load(
         "pytorch/vision:v0.10.0", "resnet34", pretrained=False
     )
-    resnet_model.fc = nn.Linear(resnet_model.fc.in_features, 3)  # 3 classes
+    resnet_model.fc = nn.Linear(resnet_model.fc.in_features, 3)
     resnet_model.load_state_dict(
-        torch.load("./src/weights/two-step/resnet34_classifier.pt", map_location=device)
+        torch.load("./src/weights/two-step/resnet34_classifier.pt")
     )
     resnet_model.to(device)
     resnet_model.eval()
@@ -64,11 +67,10 @@ def classify_crops(
     if not crops:
         return [], []
 
-    # fefine needed transforms to suit for the models (normalization & resiing)
+    # define needed transforms to match training preprocessing exactly
+    # only normalization - resizing will be done manually with cv2 to match training
     transform = transforms.Compose(
         [
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ]
     )
@@ -81,12 +83,21 @@ def classify_crops(
 
     with torch.no_grad():
         for crop in crops:
-            # convert PIL to RGB if needed
-            if crop.mode != "RGB":
-                crop = crop.convert("RGB")
+            # manual preprocessing to match testing processing
+            # 1. convert PIL to numpy array
+            img_array = np.array(crop)
 
-            # transform and add batch dimension
-            input_tensor = transform(crop).unsqueeze(0).to(device)
+            # 2. resize using cv2 with INTER_LINEAR (same as training)
+            img_resized = cv2.resize(
+                img_array, (224, 224), interpolation=cv2.INTER_LINEAR
+            )
+
+            # 3. convert to tensor (this also converts to [0,1] range)
+            to_tensor = transforms.ToTensor()
+            img_tensor = to_tensor(img_resized)
+
+            # 4. apply normalization (same as training)
+            input_tensor = transform(img_tensor).unsqueeze(0).to(device)
 
             # custom classifier prediction
             custom_output = custom_model(input_tensor)
@@ -177,7 +188,7 @@ def run_two_step_detection(
     return all_detections
 
 
-def plot_two_step_detections(detections_data: List[dict], output_dir:str) -> None:
+def plot_two_step_detections(detections_data: List[dict], output_dir: str) -> None:
     """Plot images with two-step detection results.
 
     Args:
@@ -228,7 +239,7 @@ def plot_two_step_detections(detections_data: List[dict], output_dir:str) -> Non
                 fontweight="bold",
                 bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8),
             )
-            
+
             # finetuned resnet
             ax.text(
                 x1,
