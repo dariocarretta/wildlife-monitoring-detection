@@ -1,7 +1,7 @@
 presentation_utils
 wandb
 weights
-data*
+data
 wildlife-detection
 __pycache__
 results
