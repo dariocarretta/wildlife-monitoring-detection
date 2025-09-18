@@ -136,7 +136,7 @@ After being trained for 300 epochs with a learning rate of 0.001, the model reac
 ## Conclusions
 
 
-The field of animal detection has already some SOTA models (namely MegaDetector) for what concerns the localization part, but integrating the classification part - especially in difficult trap cameras dataset - is not trivial.
+The field of animal detection has already some SOTA models (namely MegaDetector) for what concerns the localization part, but integrating the classification part - especially in difficult, small-sized trap cameras dataset - is not trivial.
 
 While one-step approaches seems to have a better performance, they are sometimes prone to inaccurate localization and false positives. 
 For these reasons, alhough overall image contextual information can  be useful, it may be more effective and convenient to train better classifiers, applied to the more precise localizations provided by accurate models, to focus on the classification part, if needed. 
