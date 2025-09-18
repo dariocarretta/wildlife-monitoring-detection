@@ -1,3 +1,13 @@
+- [Wildlife Monitoring (Detection)](#wildlife-monitoring-detection)
+  - [Data](#data)
+  - [Methodologies](#methodologies)
+    - [One-Step  Detection: Finetuning YOLOv11n and MegaDetector](#one-step--detection-finetuning-yolov11n-and-megadetector)
+  - [Two-Step Detection](#two-step-detection)
+    - [Finetuned ResNet34](#finetuned-resnet34)
+    - [Custom Classifier](#custom-classifier)
+  - [Conclusions](#conclusions)
+
+
 # Wildlife Monitoring (Detection)
 
 This is the repository for the final project of a course in Computer Vision for Industry and Environment from my Master's Degree.
