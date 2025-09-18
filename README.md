@@ -90,6 +90,7 @@ The ResNet34 model was finetuned with the following configurations:
 - Early stopping after no improvement on validation loss for 50 epochs, to avoid overfitting (given the more complex model and small dataset)
 - Multiclass [Focal Loss](https://arxiv.org/pdf/1708.02002) with $\gamma = 2.0$ and class weights $\pmb{\alpha}$ set according to normalized inverse class frequency, to make the model focus more on difficult examples, and possibly migitgate the effects of the little imbalance in the classes
 
+Crops were resized to (224, 224), to match with ResNet training data dimensions.
 To make sure that the model conserved its initial feature extraction backbone, and not overfit too much on the new data, the weight of the first two "layers" (composed of a total of 7 basic blocks, and 14 convolutional layers) were frozen.
 
 With this configuration, the model was able to reach 0.84 in accuracy and 0.85 in F1-score on the small validation set, with a lower - but still reasonably good - performance (0.74 in both accuracy and F1) on the external test dataset.
