@@ -80,7 +80,7 @@ The data to be used to train the classifier was simply extracted from the origin
 
 ### Finetuned ResNet34
 
-As first, powerful classifier model to fine-tune, I chose ResNet34, which although is not the SOTA image classifier anymore, still consistutes a good baseline for classification, and to compare a custom model against.
+As first, powerful classifier model to fine-tune, I chose ResNet34 [^2], which although is not the SOTA image classifier anymore, still consistutes a good baseline for classification, and to compare a custom model against.
 Also, the architecture is not excessively large, so it is possible to also train it on hardware with limited computational capabilities (as mine was).
 
 The ResNet34 model was finetuned with the following configurations:
@@ -148,5 +148,7 @@ For these reasons, alhough overall image contextual information can  be useful, 
 
 
 [^1]: Schneider, Daniel; Lindner, Kim; Vogelbacher, Markus; Bellafkir, Hicham; Farwig, Nina; Freisleben, Bernd: Recognition of European mammals and birds in camera trap images using deep neural networks. IET Computer VIsion, 2024
+
+[^2]: He, Kaiming; Zhang, Xiangyu; Ren, Shaoqing; Sun, Jian: Deep Residual Learning for Image Recognition, arXiv Preprint, 2015
 
 [^3]: Hu, Jie; Li, Shen; Albanie, Samuel; Sun, Gang; Wu, Enhua: Squeeze-and-Excitation Networks. arXiv Preprint, 2019
