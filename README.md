@@ -111,7 +111,7 @@ With this lightweight additional mechanism, SE blocks can be integrated in any c
 >Summary of the operations performed inside a Squeeze-and-Excitation block. 
 >Figure taken from the original SeNet paper [^3], page 2.
 
-For this project, I chose to implemente the residual version of SENet, implementing residual connections after two consecutive SE blocks.
+For this project, I chose to consider the residual version of SENet, implementing residual connections after two consecutive SE blocks.
 
 ![resnet_senet_comparison](/media/seresnet.png)
 
