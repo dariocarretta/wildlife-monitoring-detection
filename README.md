@@ -41,7 +41,7 @@ The species of animals considered, given the small dimension of the dataset, wer
 The approach I used can be split into four different methodologies, to be compared:
 1. Fine-tune a YOLO object detection model (specifically, [YOLOv11n](https://docs.ultralytics.com/models/yolo11/#performance-metrics)) for a direct animal detection + classification in one step.
 2. Analogously to approach 1., but by fine-tuning a [MegaDetector](https://github.com/agentmorris/MegaDetector?tab=readme-ov-file#whats-megadetector-all-about) model (specifically, [MDv1000](https://github.com/agentmorris/MegaDetector/blob/main/docs/release-notes/mdv1000-release.md)), which is a SOTA model for animal detection, to also perform species classification in one step.
-3. Apply a two-step detection, by using a pretrained MDv1000 to perform animal detection, and finetune [ResNet34](https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet34.html) on the resulting crops
+3. Apply a two-step detection, by using a pretrained MDv1000 to perform animal detection, and finetune [ResNet34](https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet34.html) to be run on the resulting crops
 4. Apply a two-step detection approach, analogous to 2., but training from scratch a custom classifier (based on [Squeeze-and-Excitation Blocks](https://openaccess.thecvf.com/content_cvpr_2018/papers/Hu_Squeeze-and-Excitation_Networks_CVPR_2018_paper.pdf)) to run on the resulting detected animals.
 
 
