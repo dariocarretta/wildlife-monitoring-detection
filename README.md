@@ -27,7 +27,7 @@ The goal was to analyze different DL methods for wildlife detection that can be 
 The dataset considered was a subset of [the MOF and BNP datasets](https://data.uni-marburg.de/entities/dataset/eafc2547-4616-48a4-b9ee-cd28f207afba) (licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)), which consist of a total of ~17500 camera trap images, recorded in the Marburg Open Forest in Hesse, Germany and  Podlaskie Voivodeship, Poland [^1]
 ([Schneider et al., 2024](https://ietresearch.onlinelibrary.wiley.com/doi/epdf/10.1049/cvi2.12294)).
 
-In particular, I worked on a 305 images subset of the MOF dataset for train, and 70  images taken from the BNP dataset (and the "Empty" directory of the MOF dataset, with non-detected images) for validation/testing. To this subset I applied manual labelling using the [YoloLabel](https://github.com/developer0hye/Yolo_Label?tab=readme-ov-file) detection labeling tool.
+In particular, I worked on a small subset of the datasets, by applying manual labeling to 305 images of the MOF dataset selected for train, and to 70 images taken from the BNP dataset (and the "Empty" directory of the MOF dataset, with non-detected images) for validation/testing. For the manual labelling I used the [YoloLabel](https://github.com/developer0hye/Yolo_Label?tab=readme-ov-file) tool.
 
 The species of animals considered, given the small dimension of the dataset, were simply three, chosen from common European medium-large mammals: 
 - Roe Deer (*Capreolus Capreolus*): 109 images included in the training set
