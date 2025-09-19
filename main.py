@@ -91,7 +91,7 @@ if __name__ == "__main__":
     else:
         approach = "all"  # default to run all approaches
 
-    input_dir = "./presentation_utils/test_images/"
+    input_dir = "./test_images/"
     output_dir = "./results/"
 
     if approach == "all":
